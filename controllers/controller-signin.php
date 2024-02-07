@@ -12,8 +12,6 @@ require_once '../models/Entreprise.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // tableau d'erreurs (stockage des erreurs)
     $errors = [];
-     
-
     if (empty($errors)) {
         // ici commence les tests
         if (!Entreprise::checkMailExists($_POST['mail'])) {
@@ -25,9 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // je recupère toutes les infos via la méthode getInfos()
             $utilisateurInfos = Entreprise::getInfos($_POST['mail']);
             // Utilisation de password_verify pour valider le mdp
-            if (password_verify($_POST['password'], $utilisateurInfos['password_utilisateur'])) {
+            if (password_verify($_POST['password'], $utilisateurInfos['password_entreprise'])) {
                 $_SESSION['user'] = $utilisateurInfos; 
-                header('Location: controller-home.php');
+                header('Location: controller-dashboard.php');
 
             } else {
                 $mail = $_POST['mail'];

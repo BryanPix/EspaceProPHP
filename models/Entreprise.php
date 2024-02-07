@@ -43,83 +43,119 @@ class Entreprise
         }
 
     }
-    // /**
-    //  * Methode permettant de récupérer les informations d'un utilisateur avec son mail comme paramètre
-    //  * 
-    //  * @param string $mail Adresse mail de l'utilisateur
-    //  * 
-    //  * @return bool
-    //  */
-    // public static function checkMailExists(string $mail): bool
-    // {
-    //     // le try and catch permet de gérer les erreurs, nous allons l'utiliser pour gérer les erreurs liées à la base de données
-    //     try {
-    //         // Création d'un objet $db selon la classe PDO
-    //         $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+    /**
+     * Methode permettant de récupérer les informations d'un utilisateur avec son mail comme paramètre
+     * 
+     * @param string $mail Adresse mail de l'utilisateur
+     * 
+     * @return bool
+     */
+    public static function checkMailExists(string $mail): bool
+    {
+        // le try and catch permet de gérer les erreurs, nous allons l'utiliser pour gérer les erreurs liées à la base de données
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
-    //         // stockage de ma requete dans une variable
-    //         $sql = "SELECT * FROM `utilisateur` WHERE `email_utilisateur` = :email_utilisateur";
+            // stockage de ma requete dans une variable
+            $sql = "SELECT * FROM `entreprise` WHERE `email_entreprise` = :email_entreprise";
 
-    //         // je prepare ma requête pour éviter les injections SQL
-    //         $query = $db->prepare($sql);
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
 
-    //         // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
-    //         $query->bindValue(':email_utilisateur', $mail, PDO::PARAM_STR);
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':email_entreprise', $mail, PDO::PARAM_STR);
 
-    //         // on execute la requête
-    //         $query->execute();
+            // on execute la requête
+            $query->execute();
 
-    //         // on récupère le résultat de la requête dans une variable
-    //         $result = $query->fetch(PDO::FETCH_ASSOC);
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetch(PDO::FETCH_ASSOC);
 
-    //         // on vérifie si le résultat est vide car si c'est le cas, cela veut dire que le mail n'existe pas
-    //         if (empty($result)) {
-    //             return false;
-    //         } else {
-    //             return true;
-    //         }
-    //     } catch (PDOException $e) {
-    //         echo 'Erreur : ' . $e->getMessage();
-    //         die();
-    //     }
-    // }
+            // on vérifie si le résultat est vide car si c'est le cas, cela veut dire que le mail n'existe pas
+            if (empty($result)) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
 
-    // /**
-    //  * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
-    //  * 
-    //  * @param string $mail Adresse mail de l'utilisateur
-    //  * 
-    //  * @return array Tableau associatif contenant les infos de l'utilisateur
-    //  */
-    // public static function getInfos(string $mail): array
-    // {
-    //     try {
-    //         // Création d'un objet $db selon la classe PDO
-    //         $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+    /**
+     * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
+     * 
+     * @param string $mail Adresse mail de l'utilisateur
+     * 
+     * @return array Tableau associatif contenant les infos de l'utilisateur
+     */
+    public static function getInfos(string $mail): array
+    {
+        try {
+            
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
-    //         // stockage de ma requete dans une variable
-    //         $sql = "SELECT *, DATE_FORMAT(`birthdate_utilisateur`, '%d/%m/%Y') AS birthdate_FR FROM `utilisateur` WHERE `email_utilisateur` = :email_utilisateur";
+            // stockage de ma requete dans une variable
+            $sql = "SELECT * FROM `entreprise` WHERE `email_entreprise` = :email_entreprise";
 
-    //         // je prepare ma requête pour éviter les injections SQL
-    //         $query = $db->prepare($sql);
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
 
-    //         // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
-    //         $query->bindValue(':email_utilisateur', $mail, PDO::PARAM_STR);
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':email_entreprise', $mail, PDO::PARAM_STR);
 
-    //         // on execute la requête
-    //         $query->execute();
+            // on execute la requête
+            $query->execute();
 
-    //         // on récupère le résultat de la requête dans une variable
-    //         $result = $query->fetch(PDO::FETCH_ASSOC);
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetch(PDO::FETCH_ASSOC);
 
-    //         // on retourne le résultat
-    //         return $result;
-    //     } catch (PDOException $e) {
-    //         echo 'Erreur : ' . $e->getMessage();
-    //         die();
-    //     }
-    // }
+            // on retourne le résultat
+            return $result;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
 
+    /**
+     * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
+     * 
+     * @param string $idEntreprise Id de l'entreprise
+     * 
+     * @return array Tableau associatif contenant les infos de l'utilisateur
+     */
+    public static function getAllUsers(string $idEntreprise): array
+    {
+        try {
+            
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT * FROM `entreprise` NATURAL JOIN `utilisateur` WHERE `ID_Entreprise` = 1; ";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_STR);
+
+            // on execute la requête
+            $query->execute();
+
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            // on retourne le résultat
+            return $result;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
 
 
     // /**
@@ -162,12 +198,11 @@ class Entreprise
     //         echo $e->getMessage();
     //         die();
     //     }
-    
     // }
 
 
     //  /**
-    //  * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
+    //  * Methode permettant de récupérer les infos d'un utilisateur avec son id  comme paramètre
     //  * 
     //  * @param int $idUser id de l'utilisateur
     //  * 

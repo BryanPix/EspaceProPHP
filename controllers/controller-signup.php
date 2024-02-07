@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['spanSiret'] = 'Veuillez saisir votre Numéro Siret';
     } elseif(strlen($_POST['siretNumber']) != 14){
         $errors['spanSiret'] = 'Veuillez saisir un Numéro Siret valide';
-
     }
     if (empty($_POST['adresse'])) {
         $errors['spanAdresse'] = "Veuillez saisir l'addresse de votre entreprise";
