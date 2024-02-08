@@ -122,7 +122,7 @@ class Entreprise
     }
 
     /**
-     * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
+     * Methode permettant de récupérer les infos d'un utilisateur avec l'id de l'entreprise comme paramètre
      * 
      * @param string $idEntreprise Id de l'entreprise
      * 
@@ -136,7 +136,7 @@ class Entreprise
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
             // stockage de ma requete dans une variable
-            $sql = "SELECT * FROM `entreprise` NATURAL JOIN `utilisateur` WHERE `ID_Entreprise` = 1; ";
+            $sql = "SELECT * FROM `entreprise` NATURAL JOIN `utilisateur` WHERE `ID_Entreprise` = :ID_Entreprise; ";
 
             // je prepare ma requête pour éviter les injections SQL
             $query = $db->prepare($sql);

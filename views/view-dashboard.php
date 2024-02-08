@@ -15,16 +15,17 @@ include 'templates/header.php';
     <?= '<p>Bienvenue ' . $_SESSION['user']['name_entreprise'] . ' ! </p>'?>
        
     <div>
-        <p>Nombre total d'utilisateur</p>
+        <p>Liste des utilisateurs :</p>
+
 
         <ul>
-        <?php foreach (Entreprise::getAllUsers() as $users) { ?>
+        <?php foreach (Entreprise::getAllUsers($idEntreprise) as $users) { ?>
             
                 <li>
-                <?= var_dump($_SESSION)?>
+                <?= $users['firstname_utilisateur'] ?>
                 </li>
                 <?php } ?>
-            </ul>
+            </ul> 
 
     </div>
 

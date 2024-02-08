@@ -1,6 +1,6 @@
 <?php
 session_start();
-// l'ordre est important car Utilisateur.php utilise des constantes venant de config.php 
+// l'ordre est important car Entreprise.php utilise des constantes venant de config.php 
 
 // config
 require_once '../config.php';

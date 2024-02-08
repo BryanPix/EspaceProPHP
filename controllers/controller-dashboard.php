@@ -15,6 +15,6 @@ require_once '../config.php';
 require_once '../models/Entreprise.php';
 
 
+$idEntreprise = $_SESSION['user']['ID_Entreprise'];
 
 include_once '../views/view-dashboard.php';
-
