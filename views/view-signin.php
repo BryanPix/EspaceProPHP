@@ -12,12 +12,11 @@ include 'templates/header.php';
     <h1>Connexion</h1>
     <div class="divFormulaire">
         <form method="POST" action="" autocomplete="off" novalidate>
-
             <label for="mail" class="labelSignin">
                 <p class="labelUnderline">Adresse mail :</p>
                 <input class="inputField" type="text" id="mail" name="mail" size="25" value="<?php if (!empty($mail)) {
                     echo $mail;
-                } ?>" placeholder="Balanciaga@gmail.com" required>
+                } ?>" placeholder="Balenciaga@gmail.com" required>
                 <span class="redInput spanEmail">
                     <?= isset($errors["spanEmail"]) ? $errors["spanEmail"] : "" ?>
                 </span>
@@ -27,6 +26,12 @@ include 'templates/header.php';
                 <input class="inputField" type="password" id="password" name="password" size="20" required>
                 <span class="redInput dynamicFont spanPassword">
                     <?= isset($errors["spanPassword"]) ? $errors["spanPassword"] : "" ?>
+                </span>
+            </label>
+            <label for="captcha">
+                <div class="g-recaptcha" data-sitekey="6LcGEnEpAAAAAPzQn7AXnr4M5mNfm2TSYrK-4Gcq" name="captcha" id="captcha"></div>
+                <span class="redInput spanCaptcha">
+                <?= isset($errors["spanCaptcha"]) ? $errors["spanCaptcha"] : "" ?>
                 </span>
             </label>
             <input class="btn-signup" type="submit" id="btn-check" value="Se Connecter">

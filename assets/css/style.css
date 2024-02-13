@@ -1,0 +1,59 @@
+h1 {
+  text-align: center;
+}
+.title {
+  text-align: center;
+}
+.mainDiv {
+  border: 3px solid black;
+  display: flex;
+  flex-direction: row;
+}
+
+.rowDiv1,
+.rowDiv2,
+.rowDiv3 {
+  text-align: center;
+  border: 1px solid black;
+  width: 40%;
+}
+ul {
+  list-style-type: korean-hangul-formal;
+  text-align: left;
+}
+.bottomDiv {
+  text-align: center;
+  border: 1px solid black;
+  width: 40%;
+  height: 20vh;
+
+}
+.asideDiv1 {
+  float: left;
+  width: 20%;
+  padding-left: 0.5rem;
+  border: 1px solid black;
+  border-radius: 4px 0 0 4px;
+}
+.asideDiv2 {
+  float: right;
+  width: 20%;
+  padding-left: 0.5rem;
+  border: 1px solid black;
+  border-radius: 0 4px 4px 0;
+}
+
+/* footer */
+.divNavigation{
+    position: fixed;
+    bottom: 0;
+    left: 45%;
+    display: flex;
+    flex-direction: row;
+}
+.divHome{
+    margin-right: 1rem;
+}
+.divSignout{
+    margin-left: 1rem;
+}

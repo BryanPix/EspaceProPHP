@@ -14,7 +14,10 @@ require_once '../config.php';
 // models
 require_once '../models/Entreprise.php';
 
-
-$idEntreprise = $_SESSION['user']['ID_Entreprise'];
+$allUtilisateurs = Entreprise::getAllUsers($_SESSION['user']['ID_Entreprise']);
+$actifUtilisateurs = Entreprise::getActifUtilisateurs($_SESSION['user']['ID_Entreprise']);
+$allTrajets = Entreprise::getAllTrajets($_SESSION['user']['ID_Entreprise']);
+$lastfiveusers = Entreprise::getLastFiveUsers($_SESSION['user']['ID_Entreprise']);
+$lastfivetrajet = Entreprise::getLastFiveTrajet($_SESSION['user']['ID_Entreprise']);
 
 include_once '../views/view-dashboard.php';

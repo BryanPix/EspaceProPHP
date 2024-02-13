@@ -29,13 +29,13 @@ class Entreprise
 
             // on relie les valeurs à nos marqueurs à l'aide d'un bindValue
             $query->bindValue(':name_entreprise', htmlspecialchars($name), PDO::PARAM_STR);
-            $query->bindValue(':email_entreprise',$mail, PDO::PARAM_STR);
+            $query->bindValue(':email_entreprise', $mail, PDO::PARAM_STR);
             $query->bindValue(':siretnumber_entreprise', $siret, PDO::PARAM_INT);
             $query->bindValue(':adresse_entreprise', $adresse, PDO::PARAM_STR);
             $query->bindValue(':zipcode_entreprise', $zipcode, PDO::PARAM_INT);
             $query->bindValue(':city_entreprise', $city, PDO::PARAM_STR);
             $query->bindValue(':password_entreprise', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
-            
+
             $query->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -94,7 +94,7 @@ class Entreprise
     public static function getInfos(string $mail): array
     {
         try {
-            
+
             // Création d'un objet $db selon la classe PDO
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
@@ -128,10 +128,9 @@ class Entreprise
      * 
      * @return array Tableau associatif contenant les infos de l'utilisateur
      */
-    public static function getAllUsers(string $idEntreprise): array
+    public static function getAllUsers(int $idEntreprise): int
     {
         try {
-            
             // Création d'un objet $db selon la classe PDO
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
@@ -147,8 +146,106 @@ class Entreprise
             // on execute la requête
             $query->execute();
 
+
+            // on récupère le nombre d'utilisateurs actifs
+            $count = $query->rowCount();
+
+            // on retourne le nombre d'utilisateurs actifs
+            return $count;
+        } catch (PDOException $e) {
+            // En cas d'erreur PDO, affichage du message d'erreur
+            echo 'Erreur : ' . $e->getMessage();
+            // Arrêt du script
+            die();
+        }
+    }
+
+
+    public static function getActifUtilisateurs(int $idEntreprise): int
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT DISTINCT utilisateur.*
+        FROM `utilisateur`
+        JOIN `trajet` ON utilisateur.`id_utilisateur` = trajet.`id_utilisateur`
+        WHERE utilisateur.`ID_Entreprise` = :ID_Entreprise;";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+
+            // on execute la requête
+            $query->execute();
+
+            // on récupère le nombre d'utilisateurs actifs
+            $count = $query->rowCount();
+
+            // on retourne le nombre d'utilisateurs actifs
+            return $count;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
+    public static function getAllTrajets(int $idEntreprise): int
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT count('id_trajet') AS 'Total des trajets' FROM `trajet` 
+        JOIN `utilisateur` ON trajet.`id_utilisateur` = utilisateur.`id_utilisateur`
+        WHERE `ID_Entreprise` = :ID_Entreprise;";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+
+            // on execute la requête
+            $query->execute();
+
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+
+            // on retourne le nom de l'entreprise
+            return $result['Total des trajets'];
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
+    public static function getLastFiveUsers(int $idEntreprise): array
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur` FROM `utilisateur` 
+        WHERE `ID_Entreprise` = :ID_Entreprise
+        ORDER BY `id_utilisateur` DESC LIMIT 5";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+
+            // on execute la requête
+            $query->execute();
+
             // on récupère le résultat de la requête dans une variable
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
             // on retourne le résultat
             return $result;
         } catch (PDOException $e) {
@@ -157,77 +254,55 @@ class Entreprise
         }
     }
 
+    public static function getLastFiveTrajet(int $idEntreprise): array
+    {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
-    // /**
-    //  * Methode permettant de récupérer les infos d'un utilisateur avec son mail comme paramètre
-    //  * 
-    //  * @param string $imageUser Image de l'utilisateur
-    //  * @param string $name Nom de l'utilisateur
-    //  * @param string $prenom Prénom de l'utilisateur
-    //  * @param string $pseudo Pseudo de l'utilisateur
-    //  * @param string $birthdate Date de naissance de l'utilisateur
-    //  * @param string $mail Adresse mail de l'utilsateur
-    //  * @param string $description description de l'utilisateur
-    //  * 
-    //  * @return void
-    //  */
-    
-    // public static function updateUtilisateur(string $imageUser, string $name, string $prenom, string $pseudo, string $birthdate, string $mail, string $description)
-    // {
-    //     // try and catch
-    //     try {
-    //         // Création d'un objet $db selon la classe PDO 
-    //         // Connextion à la bdd
-    //         $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
-    //         // stockage de la requete dans une variable
-    //         $sql = "UPDATE `Utilisateur` SET `Image_utilisateur` = :Image_utilisateur, `lastname_utilisateur` = :lastname_utilisateur, `firstname_utilisateur` = :firstname_utilisateur, `nickname_utilisateur` = :nickname_utilisateur, `birthdate_utilisateur` = :birthdate_utilisateur, `email_utilisateur` = :email_utilisateur, `description_utilisateur` = :description_utilisateur WHERE `email_utilisateur` = :email_utilisateur";
+            $sql = "SELECT trajet.`date_trajet`, trajet.`distance_trajet`, utilisateur.`nickname_utilisateur` , modedetransport.`Type_modedetransport`
+        FROM `trajet`
+        JOIN `utilisateur`  ON trajet.`id_utilisateur` = utilisateur.`id_utilisateur`
+        JOIN `modedetransport` ON trajet.`id_modedetransport` = modedetransport.`id_modedetransport`
+        JOIN `entreprise`  ON utilisateur.`ID_Entreprise` = entreprise.`ID_Entreprise`
+        WHERE entreprise.`ID_Entreprise` = :ID_Entreprise
+        ORDER BY trajet.`date_trajet` DESC 
+        LIMIT 5";
 
-    //         $query = $db->prepare($sql);
-    
-    //         // on relie les valeurs à nos marqueurs à l'aide d'un bindValue
-    //         $query->bindValue(':Image_utilisateur', $imageUser, PDO::PARAM_STR);
-    //         $query->bindValue(':lastname_utilisateur', $name, PDO::PARAM_STR);
-    //         $query->bindValue(':firstname_utilisateur', $prenom, PDO::PARAM_STR);
-    //         $query->bindValue(':nickname_utilisateur', $pseudo, PDO::PARAM_STR);
-    //         $query->bindValue(':birthdate_utilisateur', $birthdate, PDO::PARAM_STR);
-    //         $query->bindValue(':email_utilisateur', $mail, PDO::PARAM_STR);
-    //         $query->bindValue(':description_utilisateur', $description, PDO::PARAM_STR);
-    
-    //         $query->execute();
-    //     } catch (PDOException $e) {
-    //         echo $e->getMessage();
-    //         die();
-    //     }
-    // }
+            $query = $db->prepare($sql);
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
 
+            $query->execute();
 
-    //  /**
-    //  * Methode permettant de récupérer les infos d'un utilisateur avec son id  comme paramètre
-    //  * 
-    //  * @param int $idUser id de l'utilisateur
-    //  * 
-    //  * @return void
-    //  */
-    // public static function deleteUtilisateur(int $idUser)
-    // {
-    //     // try and catch
-    //     try {
-    //         // Création d'un objet $db selon la classe PDO 
-    //         // Connextion à la bdd
-    //         $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
-    //         // stockage de la requete dans une variable
-    //         $sql = "DELETE FROM `utilisateur`
-    //         WHERE `id_utilisateur` = :id_utilisateur";
+            // Récupérer tous les résultats
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    //         $query = $db->prepare($sql);
-            
-    //         // on relie les valeurs à nos marqueurs à l'aide d'un bindValue
-    //         $query->bindValue(':id_utilisateur', $idUser, PDO::PARAM_INT);
-    
-    //         $query->execute();
-    //     } catch (PDOException $e) {
-    //         echo $e->getMessage();
-    //         die();
-    //     }
-    // }
+            return $result;
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
+
+    public static function deleteEntreprise(int $idEntreprise)
+    {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            $sql = "DELETE FROM entreprise WHERE ID_Entreprise = :ID_Entreprise";
+            $query = $db->prepare($sql);
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+            $query->execute();
+
+            // Détruire la session
+            session_destroy();
+
+            // Supprimer le mot de passe de la session
+            unset($_SESSION['password_entreprise']);
+
+            return true;
+        } catch (PDOException $e) {
+            // Si une erreur se produit, retourner le message d'erreur
+            return 'Erreur : ' . $e->getMessage();
+        }
+    }
 }

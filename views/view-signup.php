@@ -64,7 +64,9 @@ include 'templates/header.php';
                 <label class="" for="zipcode" >
                     <p>Code Postal de l'entreprise<sup class="redInput">* </sup> :</p>
 
-                    <input class="inputField" type="text" id="confirmPass" name="zipcode" size="20" required>
+                    <input class="inputField" type="text" id="confirmPass" name="zipcode" size="20" value="<?php if (!empty($zipcode)) {
+                        echo $zipcode;
+                    } ?>" required>
                     <span class="redInput spanZip">
                         <?= isset($errors["spanZip"]) ? $errors["spanZip"] : "" ?>
                     </span>
@@ -73,7 +75,9 @@ include 'templates/header.php';
                 <label class="" for="city" >
                     <p>Ville de l'entreprise<sup class="redInput">* </sup> :</p>
 
-                    <input class="inputField" type="text" id="confirmPass" name="city" size="20" required>
+                    <input class="inputField" type="text" id="confirmPass" name="city" size="20" value="<?php if (!empty($city)) {
+                        echo $city;
+                    } ?>" required>
                     <span class="redInput spanCity">
                         <?= isset($errors["spanCity"]) ? $errors["spanCity"] : "" ?>
                     </span>
