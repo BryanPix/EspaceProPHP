@@ -7,6 +7,7 @@ if(!isset($_SESSION['user'])){
     exit();
 }
 
+
 // l'ordre est important car Entreprise.php utilise des constantes venant de config.php 
 
 // config

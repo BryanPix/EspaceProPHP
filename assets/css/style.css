@@ -18,7 +18,7 @@ h1 {
   width: 40%;
 }
 ul {
-  list-style-type: korean-hangul-formal;
+  list-style-type: disc;
   text-align: left;
 }
 .bottomDiv {
