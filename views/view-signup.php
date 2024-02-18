@@ -9,6 +9,8 @@ include 'templates/header.php';
 ?>
 
 <body>
+<button onclick="darkMode()" class="btn-darkMode"><i class="fa-solid fa-sun"></i></button>
+
     <?php if ($showform) { ?>
         <h1>Inscription</h1>
 
@@ -22,7 +24,7 @@ include 'templates/header.php';
                     <input class="inputField" type="text" id="nom" name="nom" size="20" placeholder="Balenciaga" value="<?php if (!empty($name)) {
                         echo $name;
                     } ?>" required>
-                    <span class="redInput spanNom">
+                    <span class="redInput redText spanNom">
                         <?= isset($errors["spanNom"]) ? $errors["spanNom"] : "" ?>
                     </span>
                 </label>
@@ -34,7 +36,7 @@ include 'templates/header.php';
                         value="<?php if (!empty($mail)) {
                             echo $mail;
                         } ?>" required>
-                    <span class="redInput spanEmail">
+                    <span class="redInput redText spanEmail">
                         <?= isset($errors["spanEmail"]) ? $errors["spanEmail"] : "" ?>
                     </span>
                 </label>
@@ -45,7 +47,7 @@ include 'templates/header.php';
                     <input class="inputField" type="text" name="siretNumber" value="<?php if (!empty($siret)) {
                         echo $siret;
                     } ?>" required>
-                    <span class="redInput spanSiret">
+                    <span class="redInput redText spanSiret">
                         <?= isset($errors["spanSiret"]) ? $errors["spanSiret"] : "" ?>
                     </span>
                 </label>
@@ -56,7 +58,7 @@ include 'templates/header.php';
                     <input class="inputField" id="adresse" type="text" name="adresse" size="20" value="<?php if (!empty($adresse)) {
                         echo $adresse;
                     } ?>" required> 
-                    <span class="redInput spanAdresse">
+                    <span class="redInput redText spanAdresse">
                         <?= isset($errors["spanAdresse"]) ? $errors["spanAdresse"] : "" ?>
                     </span>
                 </label>
@@ -67,7 +69,7 @@ include 'templates/header.php';
                     <input class="inputField" type="text" id="confirmPass" name="zipcode" size="20" value="<?php if (!empty($zipcode)) {
                         echo $zipcode;
                     } ?>" required>
-                    <span class="redInput spanZip">
+                    <span class="redInput redText spanZip">
                         <?= isset($errors["spanZip"]) ? $errors["spanZip"] : "" ?>
                     </span>
                 </label>
@@ -78,7 +80,7 @@ include 'templates/header.php';
                     <input class="inputField" type="text" id="confirmPass" name="city" size="20" value="<?php if (!empty($city)) {
                         echo $city;
                     } ?>" required>
-                    <span class="redInput spanCity">
+                    <span class="redInput redText spanCity">
                         <?= isset($errors["spanCity"]) ? $errors["spanCity"] : "" ?>
                     </span>
                 </label>
@@ -87,7 +89,7 @@ include 'templates/header.php';
                     <p>Mot de passe<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" type="password" id="password" name="password" size="20" required>
-                    <span class="redInput spanPassword">
+                    <span class="redInput redText spanPassword">
                         <?= isset($errors["spanPassword"]) ? $errors["spanPassword"] : "" ?>
                     </span>
                 </label>
@@ -96,7 +98,7 @@ include 'templates/header.php';
                     <p>Confirmation du mot de passe<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" type="password" id="confirmPass" name="confirmPass" size="20" required>
-                    <span class="redInput spanConfirm">
+                    <span class="redInput redText spanConfirm">
                         <?= isset($errors["spanConfirm"]) ? $errors["spanConfirm"] : "" ?>
                     </span>
                 </label>
@@ -105,8 +107,8 @@ include 'templates/header.php';
                 <input class="btn-signup" type="submit" id="btn-check" value="S'enregistrer">
 
             </form>
-            <span class="spanDirectionSignup">Vous avez déjà un compte ? <a href="controller-signin.php">Connectez-vous
-                    !</a></span>
+            <p class="spanDirection">Vous avez déjà un compte ?</p>
+            <a href="controller-signin.php" class="btn-redirect">Connectez-vous !</a>
         </div>
     <?php } else { ?>
 
@@ -118,12 +120,7 @@ include 'templates/header.php';
             <a href="../controllers/controller-signin.php"><button class="btn-signup">Connexion</button></a>
         </div>
     <?php } ?>
-    <!-- <footer>
-        <?php
-        include 'templates/footer.php';
-        ?>
-    </footer> -->
-    <script src="../js/script.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
 </body>
 
 </html>

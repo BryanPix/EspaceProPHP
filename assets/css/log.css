@@ -1,0 +1,106 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+[type="password"],
+[type="date"] {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid gray;
+  width: 90%;
+  color: black;
+  outline: 0;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+input[type="submit"] {
+  width: 80%;
+  border: none;
+  border-radius: 4px;
+  background: rgb(254, 190, 43);
+  padding: 1rem;
+  color: black;
+  font-weight: 600;
+}
+.btn-signup {
+  position: relative;
+  left: 10vw;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.spanDirection {
+  text-align: center;
+}
+.btn-redirect {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  margin-bottom: 5rem;
+
+}
+.btn-redirect:link,
+.btn-redirect:visited,
+.btn-redirect:hover,
+.btn-redirect:active {
+  color: black;
+  text-decoration: underline;
+}
+
+.dark-mode {
+  background-color: #0855ff;
+  color: white;
+}
+
+.btn-darkMode {
+  border: none;
+  background-color: transparent;
+  float: right;
+  display: visible;
+}
+
+.redInput {
+  color: rgba(219, 21, 21, 0.796);
+  margin: 2rem 0;
+}
+.spanCaptcha{
+    display: block;
+}
+
+/* Petit ecran */
+@media (min-width: 640px) {
+    .btn-redirect {
+        margin-bottom: 5rem;
+    }
+}
+/* Ecran medium */
+@media (min-width: 768px) {
+    .btn-redirect {
+        margin-bottom: 5rem;
+    }
+}
+
+/* Ecran large */
+@media (min-width: 1024px) {
+    .redText {    
+        display: block;
+      }
+}
+
+/* Ecran extra large */
+@media (min-width: 1280px) {
+    .redText {
+        display: block;
+      }
+}
+
+/* Ecran extra extra large */
+@media (min-width: 1538px) {
+    .redText {
+        display: block;
+      }
+}

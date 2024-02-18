@@ -26,7 +26,6 @@ ul {
   border: 1px solid black;
   width: 40%;
   height: 20vh;
-
 }
 .asideDiv1 {
   float: left;
@@ -44,16 +43,74 @@ ul {
 }
 
 /* footer */
-.divNavigation{
-    position: fixed;
-    bottom: 0;
-    left: 45%;
-    display: flex;
-    flex-direction: row;
+.divNavigation {
+  position: fixed;
+  bottom: 0;
+  left: 45%;
+  display: flex;
+  flex-direction: row;
 }
-.divHome{
-    margin-right: 1rem;
+.divHome {
+  margin-right: 1rem;
 }
-.divSignout{
-    margin-left: 1rem;
+.divSignout {
+  margin-left: 1rem;
+}
+
+.btn-return {
+  background: rgb(254, 190, 43);
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+}
+.btn-return:hover{
+  background-color: rgba(226, 193, 5, 0.931);
+  color: black;
+}
+.dark-mode {
+  background-color: #0855ff;
+  color: white;
+}
+
+.btn-darkMode {
+  border: none;
+  background-color: transparent;
+  float: right;
+  display: visible;
+}
+
+/* Petit ecran */
+@media (min-width: 640px) {
+  .btn-redirect {
+      margin-bottom: 5rem;
+  }
+}
+/* Ecran medium */
+@media (min-width: 768px) {
+  .btn-redirect {
+      margin-bottom: 5rem;
+  }
+}
+
+/* Ecran large */
+@media (min-width: 1024px) {
+  .redText {    
+      display: block;
+    }
+}
+
+/* Ecran extra large */
+@media (min-width: 1280px) {
+  .redText {
+      display: block;
+    }
+}
+
+/* Ecran extra extra large */
+@media (min-width: 1538px) {
+  .redText {
+      display: block;
+    }
 }
