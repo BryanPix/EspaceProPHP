@@ -254,6 +254,8 @@ class Entreprise
         }
     }
 
+
+    
     public static function getLastFiveTrajet(int $idEntreprise): array
     {
         try {
