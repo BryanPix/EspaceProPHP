@@ -128,7 +128,7 @@ class Entreprise
      * 
      * @return array Tableau associatif contenant les infos de l'utilisateur
      */
-    public static function getAllUsers(int $idEntreprise): int
+    public static function getAllUsers(int $idEntreprise): string
     {
         try {
             // Création d'un objet $db selon la classe PDO
@@ -151,17 +151,21 @@ class Entreprise
             $count = $query->rowCount();
 
             // on retourne le nombre d'utilisateurs actifs
-            return $count;
-        } catch (PDOException $e) {
-            // En cas d'erreur PDO, affichage du message d'erreur
-            echo 'Erreur : ' . $e->getMessage();
-            // Arrêt du script
-            die();
+            // on retourne le nombre d'utilisateurs actifs
+            return json_encode([
+                'status' => 'success',
+                'active_users' => $count
+            ]);
+            } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
         }
     }
 
 
-    public static function getActifUtilisateurs(int $idEntreprise): int
+    public static function getActifUtilisateurs(int $idEntreprise): string
     {
         try {
             // Création d'un objet $db selon la classe PDO
@@ -185,21 +189,28 @@ class Entreprise
             // on récupère le nombre d'utilisateurs actifs
             $count = $query->rowCount();
 
+        
+            
             // on retourne le nombre d'utilisateurs actifs
-            return $count;
-        } catch (PDOException $e) {
-            echo 'Erreur : ' . $e->getMessage();
-            die();
+            return json_encode([
+                'status' => 'success',
+                'active_users' => $count
+            ]);
+            } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
         }
     }
-    public static function getAllTrajets(int $idEntreprise): int
+    public static function getAllTrajets(int $idEntreprise): string
     {
         try {
             // Création d'un objet $db selon la classe PDO
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
             // stockage de ma requete dans une variable
-            $sql = "SELECT count('id_trajet') AS 'Total des trajets' FROM `trajet` 
+            $sql = "SELECT count('id_trajet') AS 'total_trajets' FROM `trajet` 
         JOIN `utilisateur` ON trajet.`id_utilisateur` = utilisateur.`id_utilisateur`
         WHERE `ID_Entreprise` = :ID_Entreprise;";
 
@@ -216,14 +227,18 @@ class Entreprise
             $result = $query->fetch(PDO::FETCH_ASSOC);
 
 
-            // on retourne le nom de l'entreprise
-            return $result['Total des trajets'];
-        } catch (PDOException $e) {
-            echo 'Erreur : ' . $e->getMessage();
-            die();
+            return json_encode([
+                'status' => 'success',
+                'total_trajets' => $result
+            ]);
+            } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
         }
     }
-    public static function getLastFiveUsers(int $idEntreprise): array
+    public static function getLastFiveUsers(int $idEntreprise): string
     {
         try {
             // Création d'un objet $db selon la classe PDO
@@ -247,16 +262,21 @@ class Entreprise
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
             // on retourne le résultat
-            return $result;
-        } catch (PDOException $e) {
-            echo 'Erreur : ' . $e->getMessage();
-            die();
+            return json_encode([
+                'status' => 'success',
+                'last_five_users' => $result
+            ]);
+            } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
         }
     }
 
 
     
-    public static function getLastFiveTrajet(int $idEntreprise): array
+    public static function getLastFiveTrajet(int $idEntreprise): string
     {
         try {
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
@@ -278,10 +298,16 @@ class Entreprise
             // Récupérer tous les résultats
             $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-            return $result;
-        } catch (PDOException $e) {
-            echo 'Erreur : ' . $e->getMessage();
-            die();
+            // on retourne le résultat
+            return json_encode([
+                'status' => 'success',
+                'last_five_trajet' => $result
+            ]);
+            } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
         }
     }
 

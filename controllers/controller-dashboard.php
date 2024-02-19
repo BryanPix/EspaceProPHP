@@ -15,10 +15,16 @@ require_once '../config.php';
 // models
 require_once '../models/Entreprise.php';
 
-$allUtilisateurs = Entreprise::getAllUsers($_SESSION['user']['ID_Entreprise']);
-$actifUtilisateurs = Entreprise::getActifUtilisateurs($_SESSION['user']['ID_Entreprise']);
-$allTrajets = Entreprise::getAllTrajets($_SESSION['user']['ID_Entreprise']);
-$lastfiveusers = Entreprise::getLastFiveUsers($_SESSION['user']['ID_Entreprise']);
-$lastfivetrajet = Entreprise::getLastFiveTrajet($_SESSION['user']['ID_Entreprise']);
+$allUtilisateurs = json_decode(Entreprise::getAllUsers($_SESSION['user']['ID_Entreprise']), true);
+$allUsers = $allUtilisateurs['active_users'] ?? 0;
 
+$actifUtilisateurs = json_decode(Entreprise::getActifUtilisateurs($_SESSION['user']['ID_Entreprise']), true);
+$actifUsers = $actifUtilisateurs['active_users'] ?? 0;
+
+$allTrajets = json_decode(Entreprise::getAllTrajets($_SESSION['user']['ID_Entreprise']), true);
+$allRides = $allTrajets['total_trajets']['total_trajets'] ?? 0;
+
+$lastfiveusers = json_decode(Entreprise::getLastFiveUsers($_SESSION['user']['ID_Entreprise']), true);
+
+$lastfivetrajet = json_decode(Entreprise::getLastFiveTrajet($_SESSION['user']['ID_Entreprise']), true);
 include_once '../views/view-dashboard.php';

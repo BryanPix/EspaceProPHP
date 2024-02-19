@@ -1,7 +1,50 @@
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+h1 {
+  padding-bottom: 1rem;
+}
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
+  margin: 1rem;
+}
+.iconDark {
+  display: inline;
+}
+.iconLight {
+  display: none;
+}
+.dark-mode .iconDark {
+  display: none;
+}
+.dark-mode .iconLight {
+  display: inline;
+}
+.iconDark{
+width: 20%;
+}
+/* Dark mode styles */
+body.dark-mode {
+  --background-color: #051650;; 
+  --text-color: #ffffff;    
+}
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="date"],
+body.dark-mode input[type="submit"] {
+  color: white;
+}
+body.dark-mode .btn-darkMode {
+  color: white;
+}
+label {
+  font-size: 1.1rem;
 }
 
 input[type="text"],
@@ -14,16 +57,20 @@ input[type="text"],
   color: black;
   outline: 0;
   font-size: 1.1rem;
+  margin-top: 1rem;
   margin-bottom: 1rem;
+  border-bottom: 2px solid #c4733d;
 }
+
 input[type="submit"] {
   width: 80%;
   border: none;
-  border-radius: 4px;
-  background: rgb(254, 190, 43);
+  border-radius: 0.5rem;
+  background: #c4733d;
   padding: 1rem;
   color: black;
   font-weight: 600;
+  font-size: 1rem;
 }
 .btn-signup {
   position: relative;
@@ -41,19 +88,13 @@ input[type="submit"] {
   justify-content: center;
   text-decoration: none;
   margin-bottom: 5rem;
-
 }
 .btn-redirect:link,
 .btn-redirect:visited,
 .btn-redirect:hover,
 .btn-redirect:active {
-  color: black;
+  color: #c4733d;
   text-decoration: underline;
-}
-
-.dark-mode {
-  background-color: #0855ff;
-  color: white;
 }
 
 .btn-darkMode {
@@ -61,46 +102,52 @@ input[type="submit"] {
   background-color: transparent;
   float: right;
   display: visible;
+  font-size: 1.5rem;
 }
 
 .redInput {
   color: rgba(219, 21, 21, 0.796);
   margin: 2rem 0;
 }
-.spanCaptcha{
-    display: block;
+.spanCaptcha {
+  display: block;
 }
+
+#modeIcon {
+  background-color: #c4733d;
+}
+
 
 /* Petit ecran */
 @media (min-width: 640px) {
-    .btn-redirect {
-        margin-bottom: 5rem;
-    }
+  .btn-redirect {
+    margin-bottom: 5rem;
+  }
 }
 /* Ecran medium */
 @media (min-width: 768px) {
-    .btn-redirect {
-        margin-bottom: 5rem;
-    }
+  .btn-redirect {
+    margin-bottom: 5rem;
+  }
 }
 
 /* Ecran large */
 @media (min-width: 1024px) {
-    .redText {    
-        display: block;
-      }
+  .redText {
+    display: block;
+  }
 }
 
 /* Ecran extra large */
 @media (min-width: 1280px) {
-    .redText {
-        display: block;
-      }
+  .redText {
+    display: block;
+  }
 }
 
 /* Ecran extra extra large */
 @media (min-width: 1538px) {
-    .redText {
-        display: block;
-      }
+  .redText {
+    display: block;
+  }
 }

@@ -1,6 +1,6 @@
 :root {
-  --background-color: #ffffff; 
-  --text-color: #000000;       
+  --background-color: #fff;
+  --text-color: #000000;
 }
 
 body {
@@ -12,8 +12,29 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-  --background-color: #0855ff;; 
-  --text-color: #ffffff;      
+  --background-color: #051650;
+  --text-color: #ffffff;
+}
+body.dark-mode input[type="text"],
+body.dark-mode input[type="password"],
+body.dark-mode input[type="date"],
+body.dark-mode input[type="submit"] {
+  color: white;
+}
+body.dark-mode .btn-darkMode {
+  color: white;
+}
+.iconDark {
+  display: inline;
+}
+.iconLight {
+  display: none;
+}
+.dark-mode .iconDark {
+  display: none;
+}
+.dark-mode .iconLight {
+  display: inline;
 }
 h1 {
   text-align: center;
@@ -21,7 +42,7 @@ h1 {
 .title {
   text-align: center;
 }
-.profilePicture{
+.profilePicture {
   width: 5vw;
   height: 10vh;
   border-radius: 50%;
@@ -48,7 +69,6 @@ ul {
   height: 20vh;
   display: flex;
   flex-direction: row;
- 
 }
 .asideDiv1 {
   float: left;
@@ -82,13 +102,13 @@ ul {
 
 .btn-return {
   background: rgb(254, 190, 43);
-    font-size: 1rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
 }
-.btn-return:hover{
+.btn-return:hover {
   background-color: rgba(226, 193, 5, 0.931);
   color: black;
 }
@@ -98,38 +118,39 @@ ul {
   background-color: transparent;
   float: right;
   display: visible;
+  font-size: 1.5rem;
 }
 
 /* Petit ecran */
 @media (min-width: 640px) {
   .btn-redirect {
-      margin-bottom: 5rem;
+    margin-bottom: 5rem;
   }
 }
 /* Ecran medium */
 @media (min-width: 768px) {
   .btn-redirect {
-      margin-bottom: 5rem;
+    margin-bottom: 5rem;
   }
 }
 
 /* Ecran large */
 @media (min-width: 1024px) {
-  .redText {    
-      display: block;
-    }
+  .redText {
+    display: block;
+  }
 }
 
 /* Ecran extra large */
 @media (min-width: 1280px) {
   .redText {
-      display: block;
-    }
+    display: block;
+  }
 }
 
 /* Ecran extra extra large */
 @media (min-width: 1538px) {
   .redText {
-      display: block;
-    }
+    display: block;
+  }
 }

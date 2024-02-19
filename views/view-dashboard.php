@@ -15,7 +15,11 @@ require_once "../controllers/controller-dashboard.php"
 </head>
 
 <body>
-    <button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
+    <button class="btn-darkMode" id="darkModeToggle" onclick="toggleDarkMode()">
+        <i class="fa-solid fa-sun iconDark"></i>
+        <i class="fa-solid fa-moon iconLight"></i>
+    </button>
+
 
     <!-- Main -->
     <h1>
@@ -24,52 +28,70 @@ require_once "../controllers/controller-dashboard.php"
     <aside class="asideDiv2">
         <p><b>Liste des 5 derniers utilisateurs :</b></p>
 
-        <?php foreach ($lastfiveusers as $user) { ?>
-                        <img src="../assets/img/<?= $user['Image_utilisateur'] ?>" class="profilePicture" alt="image profile" ;>
-                        <br>
-                        <b>Pseudo :</b> <?= $user['nickname_utilisateur']; ?>
-                    </br><hr>
-            <?php } ?>
+        <?php
+        $total = count($lastfiveusers['last_five_users']);
+        $i = 1;
+        foreach ($lastfiveusers['last_five_users'] as $user) { ?>
+            <img src="http://formulairePHP.test/assets/img/<?= $user['Image_utilisateur'] ?>" class="profilePicture"
+                alt="image profile" ;>
+            <br>
+            <b>Pseudo :</b>
+            <?= $user['nickname_utilisateur'];
+            ; ?>
+            </br>
+            <?= $i++ != $total ? '<hr>' : '' ?>
+        <?php } ?>
 
     </aside>
 
     <aside class="asideDiv1">
         <p><b>Menu :</b></p>
-    
-        <?= '<b>Image :</b> ' . $_SESSION['user']['Image_entreprise'] . '</br> <hr>'; ?>
-        <?= '<b>Nom :</b> ' . $_SESSION['user']['name_entreprise'] . '</br> <hr>'; ?>
-        <?= '<b>Email :</b> ' . $_SESSION['user']['email_entreprise'] . '</br> <hr>'; ?>
-        <?= '<b>Siret :</b> ' . $_SESSION['user']['siretnumber_entreprise'] . '</br> <hr>'; ?>
-        <?= '<b>Adresse :</b> ' . $_SESSION['user']['adresse_entreprise'] . '</br> <hr>'; ?>
-        <?= '<b>Ville :</b> ' . $_SESSION['user']['city_entreprise'] . '</br></br>'; ?>
-        
+
+        <b>Image :</b>
+        <img src="../assets/img/<?= $_SESSION['user']['Image_entreprise'] ?>" class="profilePicture" alt="image profile"
+            ;>
+        </br>
+        <hr>
+        <b>Nom :</b>
+        <?= $_SESSION['user']['name_entreprise'] . '</br> <hr>'; ?>
+        <b>Email :</b>
+        <?= $_SESSION['user']['email_entreprise'] . '</br> <hr>'; ?>
+        <b>Siret :</b>
+        <?= $_SESSION['user']['siretnumber_entreprise'] . '</br> <hr>'; ?>
+        <b>Adresse :</b>
+        <?= $_SESSION['user']['adresse_entreprise'] . '</br> <hr>'; ?>
+        <b>Ville :</b>
+        <?= $_SESSION['user']['city_entreprise'] . '</br></br>'; ?>
+
     </aside>
     <div class="mainDiv">
         <div class="rowDiv1">
-            <p><b>Nombre total d'utilisateur:</b></p>
-            <p><?= $allUtilisateurs ?></p>
+            <p><b>Nombre total d'utilisateur: </b>
+                <?= $allUsers ?>
+            </p>
         </div>
 
         <div class="rowDiv2">
-            <p><b>Uilisateurs actifs:  </b></p>
-            <p>
-                <?= $actifUtilisateurs ?>
+            <p><b>Uilisateurs actifs: </b>
+                <?= $actifUsers ?>
             </p>
+
+
 
         </div>
 
         <div class="rowDiv3">
-            <p><b>Nombre total de trajets :  </b></p>
-            <p>
-                <?= $allTrajets ?>
+            <p><b>Nombre total de trajets : </b>
+                <?= $allRides ?>
             </p>
+
         </div>
 
 
 
         <div class="bottomDiv">
             <p><b>Liste des 5 derniers trajets d'enregistrés :</b></p>
-            <?php foreach ($lastfivetrajet as $user) { ?>
+            <?php foreach ($lastfivetrajet['last_five_trajet'] as $user) { ?>
                 <ul>
                     <li>
                         <?= $user['nickname_utilisateur'] . '</br>'; ?>

@@ -9,8 +9,10 @@ include 'templates/header.php';
 ?>
 
 <body>
-<button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
-
+    <button class="btn-darkMode" id="darkModeToggle" onclick="toggleDarkMode()">
+        <i class="fa-solid fa-sun iconDark"></i>
+        <i class="fa-solid fa-moon iconLight"></i>
+    </button>
     <?php if ($showform) { ?>
         <h1>Inscription</h1>
 
@@ -52,18 +54,18 @@ include 'templates/header.php';
                     </span>
                 </label>
 
-                <label class="labelSignup" for="adresse" >
+                <label class="labelSignup" for="adresse">
                     <p>Adresse de l'entreprise<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" id="adresse" type="text" name="adresse" size="20" value="<?php if (!empty($adresse)) {
                         echo $adresse;
-                    } ?>" required> 
+                    } ?>" required>
                     <span class="redInput redText spanAdresse">
                         <?= isset($errors["spanAdresse"]) ? $errors["spanAdresse"] : "" ?>
                     </span>
                 </label>
 
-                <label class="" for="zipcode" >
+                <label class="" for="zipcode">
                     <p>Code Postal de l'entreprise<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" type="text" id="confirmPass" name="zipcode" size="20" value="<?php if (!empty($zipcode)) {
@@ -74,7 +76,7 @@ include 'templates/header.php';
                     </span>
                 </label>
 
-                <label class="" for="city" >
+                <label class="" for="city">
                     <p>Ville de l'entreprise<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" type="text" id="confirmPass" name="city" size="20" value="<?php if (!empty($city)) {
@@ -94,7 +96,7 @@ include 'templates/header.php';
                     </span>
                 </label>
 
-                <label class="labelSignup" for="confirmPass" >
+                <label class="labelSignup" for="confirmPass">
                     <p>Confirmation du mot de passe<sup class="redInput">* </sup> :</p>
 
                     <input class="inputField" type="password" id="confirmPass" name="confirmPass" size="20" required>

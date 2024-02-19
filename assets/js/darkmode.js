@@ -1,18 +1,28 @@
- function toggleDarkMode() {
-      const body = document.body;
-      body.classList.toggle('dark-mode');
-      
-      // Save user preference in local storage
-      const isDarkMode = body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode);
-    }
+function toggleDarkMode() {
+  const body = document.body;
+  body.classList.toggle("dark-mode");
 
-    // Event listener for the toggle button
-    const toggleButton = document.getElementById('darkModeToggle');
-    toggleButton.addEventListener('click', toggleDarkMode);
+  const isDarkMode = body.classList.contains("dark-mode");
+  localStorage.setItem("darkMode", isDarkMode);
+  // visibilité des icones
+  const iconDark = document.querySelector(".iconDark");
+  const iconLight = document.querySelector(".iconLight");
 
-    // Check user preference from local storage and apply dark mode if set
-    const savedDarkMode = localStorage.getItem('darkMode');
-    if (savedDarkMode === 'true') {
-      document.body.classList.add('dark-mode');
-    }
+  if (isDarkMode) {
+    iconDark.style.display = "none";
+    iconLight.style.display = "inline";
+  } else {
+    iconDark.style.display = "inline";
+    iconLight.style.display = "none";
+  }
+}
+
+const savedDarkMode = localStorage.getItem("darkMode");
+if (savedDarkMode === "true") {
+  document.body.classList.add("dark-mode");
+  //conserver la visibilité des icones
+  const iconDark = document.querySelector(".iconDark");
+  const iconLight = document.querySelector(".iconLight");
+  iconDark.style.display = "none";
+  iconLight.style.display = "inline";
+}

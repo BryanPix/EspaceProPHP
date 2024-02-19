@@ -9,7 +9,10 @@ include 'templates/header.php';
 ?>
 
 <body>
-<button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
+    <button class="btn-darkMode" id="darkModeToggle" onclick="toggleDarkMode()">
+        <i class="fa-solid fa-sun iconDark"></i>
+        <i class="fa-solid fa-moon iconLight"></i>
+    </button>
     <h1>Connexion</h1>
     <div class="divFormulaire">
         <form method="POST" action="" autocomplete="off" novalidate>
@@ -30,9 +33,10 @@ include 'templates/header.php';
                 </span>
             </label>
             <label for="captcha">
-                <div class="g-recaptcha" data-sitekey="6LcGEnEpAAAAAPzQn7AXnr4M5mNfm2TSYrK-4Gcq" name="captcha" id="captcha"></div>
+                <div class="g-recaptcha" data-sitekey="6LcGEnEpAAAAAPzQn7AXnr4M5mNfm2TSYrK-4Gcq" name="captcha"
+                    id="captcha"></div>
                 <span class="redInput redText spanCaptcha">
-                <?= isset($errors["spanCaptcha"]) ? $errors["spanCaptcha"] : "" ?>
+                    <?= isset($errors["spanCaptcha"]) ? $errors["spanCaptcha"] : "" ?>
                 </span>
             </label>
             <input class="btn-signup" type="submit" id="btn-check" value="Se Connecter">
@@ -42,7 +46,7 @@ include 'templates/header.php';
         <a href="controller-signup.php" class="btn-redirect"> Inscrivez-vous !</a>
     </div>
 
-<script src="../assets/js/darkmode.js"></script>
+    <script src="../assets/js/darkmode.js"></script>
 </body>
 
 </html>
