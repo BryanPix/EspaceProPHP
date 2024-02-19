@@ -15,43 +15,43 @@ require_once "../controllers/controller-dashboard.php"
 </head>
 
 <body>
-    <button onclick="darkMode()" class="btn-darkMode"><i class="fa-solid fa-sun"></i></button>
+    <button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
 
     <!-- Main -->
     <h1>
         <?= '<p class="title">Bienvenue ' . $_SESSION['user']['name_entreprise'] . ' ! </p>' ?>
     </h1>
     <aside class="asideDiv2">
-        <p>Liste des 5 derniers utilisateurs :</p>
+        <p><b>Liste des 5 derniers utilisateurs :</b></p>
 
         <?php foreach ($lastfiveusers as $user) { ?>
                         <img src="../assets/img/<?= $user['Image_utilisateur'] ?>" class="profilePicture" alt="image profile" ;>
                         <br>
-                        Pseudo : <?= $user['nickname_utilisateur']; ?>
+                        <b>Pseudo :</b> <?= $user['nickname_utilisateur']; ?>
                     </br><hr>
             <?php } ?>
 
     </aside>
 
     <aside class="asideDiv1">
-        <p>Menu :</p>
-        
-        <?= 'Image :' . $_SESSION['user']['Image_entreprise'] . '</br> <hr>'; ?>
-        <?= 'Nom :' . $_SESSION['user']['name_entreprise'] . '</br> <hr>'; ?>
-        <?= 'Email :' . $_SESSION['user']['email_entreprise'] . '</br> <hr>'; ?>
-        <?= 'Siret :' . $_SESSION['user']['siretnumber_entreprise'] . '</br> <hr>'; ?>
-        <?= 'Adresse :' . $_SESSION['user']['adresse_entreprise'] . '</br> <hr>'; ?>
-        <?= 'Ville :' . $_SESSION['user']['city_entreprise'] . '</br></br>'; ?>
+        <p><b>Menu :</b></p>
+    
+        <?= '<b>Image :</b> ' . $_SESSION['user']['Image_entreprise'] . '</br> <hr>'; ?>
+        <?= '<b>Nom :</b> ' . $_SESSION['user']['name_entreprise'] . '</br> <hr>'; ?>
+        <?= '<b>Email :</b> ' . $_SESSION['user']['email_entreprise'] . '</br> <hr>'; ?>
+        <?= '<b>Siret :</b> ' . $_SESSION['user']['siretnumber_entreprise'] . '</br> <hr>'; ?>
+        <?= '<b>Adresse :</b> ' . $_SESSION['user']['adresse_entreprise'] . '</br> <hr>'; ?>
+        <?= '<b>Ville :</b> ' . $_SESSION['user']['city_entreprise'] . '</br></br>'; ?>
         
     </aside>
     <div class="mainDiv">
         <div class="rowDiv1">
-            <p>Nombre total d'utilisateur :</p>
-            <?= $allUtilisateurs ?>
+            <p><b>Nombre total d'utilisateur:</b></p>
+            <p><?= $allUtilisateurs ?></p>
         </div>
 
         <div class="rowDiv2">
-            <p>Uilisateurs actifs :</p>
+            <p><b>Uilisateurs actifs:  </b></p>
             <p>
                 <?= $actifUtilisateurs ?>
             </p>
@@ -59,7 +59,7 @@ require_once "../controllers/controller-dashboard.php"
         </div>
 
         <div class="rowDiv3">
-            <p> Nombre total de trajets :</p>
+            <p><b>Nombre total de trajets :  </b></p>
             <p>
                 <?= $allTrajets ?>
             </p>
@@ -68,7 +68,7 @@ require_once "../controllers/controller-dashboard.php"
 
 
         <div class="bottomDiv">
-            <p>Liste des 5 derniers trajets d'enregistrés :</p>
+            <p><b>Liste des 5 derniers trajets d'enregistrés :</b></p>
             <?php foreach ($lastfivetrajet as $user) { ?>
                 <ul>
                     <li>

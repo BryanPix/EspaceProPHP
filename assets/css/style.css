@@ -1,3 +1,20 @@
+:root {
+  --background-color: #ffffff; 
+  --text-color: #000000;       
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  --background-color: #0855ff;; 
+  --text-color: #ffffff;      
+}
 h1 {
   text-align: center;
 }
@@ -5,8 +22,10 @@ h1 {
   text-align: center;
 }
 .profilePicture{
-  width: 10vw;
-  height: 20vh;
+  width: 5vw;
+  height: 10vh;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .rowDiv1,
@@ -72,10 +91,6 @@ ul {
 .btn-return:hover{
   background-color: rgba(226, 193, 5, 0.931);
   color: black;
-}
-.dark-mode {
-  background-color: #0855ff;
-  color: white;
 }
 
 .btn-darkMode {

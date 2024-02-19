@@ -9,7 +9,7 @@ include 'templates/header.php';
 ?>
 
 <body>
-<button onclick="darkMode()" class="btn-darkMode"><i class="fa-solid fa-sun"></i></button>
+<button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
 
     <?php if ($showform) { ?>
         <h1>Inscription</h1>

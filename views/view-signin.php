@@ -9,7 +9,7 @@ include 'templates/header.php';
 ?>
 
 <body>
-<button onclick="darkMode()" class="btn-darkMode"><i class="fa-solid fa-circle-half-stroke"></i></button>
+<button class="btn-darkMode" id="darkModeToggle"><i class="fa-solid fa-sun"></i></button>
     <h1>Connexion</h1>
     <div class="divFormulaire">
         <form method="POST" action="" autocomplete="off" novalidate>
