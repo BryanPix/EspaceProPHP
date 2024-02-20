@@ -156,7 +156,7 @@ class Entreprise
                 'status' => 'success',
                 'active_users' => $count
             ]);
-            } catch (PDOException $e) {
+        } catch (PDOException $e) {
             return json_encode([
                 'status' => 'error',
                 'message' => 'Erreur : ' . $e->getMessage()
@@ -189,14 +189,14 @@ class Entreprise
             // on récupère le nombre d'utilisateurs actifs
             $count = $query->rowCount();
 
-        
-            
+
+
             // on retourne le nombre d'utilisateurs actifs
             return json_encode([
                 'status' => 'success',
                 'active_users' => $count
             ]);
-            } catch (PDOException $e) {
+        } catch (PDOException $e) {
             return json_encode([
                 'status' => 'error',
                 'message' => 'Erreur : ' . $e->getMessage()
@@ -231,7 +231,7 @@ class Entreprise
                 'status' => 'success',
                 'total_trajets' => $result
             ]);
-            } catch (PDOException $e) {
+        } catch (PDOException $e) {
             return json_encode([
                 'status' => 'error',
                 'message' => 'Erreur : ' . $e->getMessage()
@@ -266,7 +266,42 @@ class Entreprise
                 'status' => 'success',
                 'last_five_users' => $result
             ]);
-            } catch (PDOException $e) {
+        } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
+        }
+    }
+    public static function getAllUsersDisplay(int $idEntreprise): string
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur` FROM `utilisateur` 
+        WHERE `ID_Entreprise` = :ID_Entreprise
+        ORDER BY `id_utilisateur`";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+
+            // on execute la requête
+            $query->execute();
+
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            // on retourne le résultat
+            return json_encode([
+                'status' => 'success',
+                'all_users' => $result
+            ]);
+        } catch (PDOException $e) {
             return json_encode([
                 'status' => 'error',
                 'message' => 'Erreur : ' . $e->getMessage()
@@ -275,7 +310,7 @@ class Entreprise
     }
 
 
-    
+
     public static function getLastFiveTrajet(int $idEntreprise): string
     {
         try {
@@ -303,7 +338,7 @@ class Entreprise
                 'status' => 'success',
                 'last_five_trajet' => $result
             ]);
-            } catch (PDOException $e) {
+        } catch (PDOException $e) {
             return json_encode([
                 'status' => 'error',
                 'message' => 'Erreur : ' . $e->getMessage()
