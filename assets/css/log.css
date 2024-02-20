@@ -16,6 +16,8 @@ body {
 }
 .iconDark {
   display: inline;
+  color: #c4733d;
+
 }
 .iconLight {
   display: none;

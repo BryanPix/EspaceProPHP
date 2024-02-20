@@ -101,10 +101,18 @@ require_once "../controllers/controller-dashboard.php"
                 </br>
                 <label>
                     Off
-                    <input type="checkbox">
+                    <input type="checkbox" <?= $user['user_validate'] == 1 ? "checked" : ""  ?>>
                     <span class="lever"></span>
                     On
                 </label>
+                <br><br>
+                <form action="">
+                <button>validate</button>
+                </form>
+                <br>
+                <form action="">
+                <button>unvalidate</button>
+                </form>
                 <?= $i++ != $total ? '<hr>' : '' ?>
                 </div>
             <?php } ?>

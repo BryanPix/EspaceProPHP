@@ -280,7 +280,7 @@ class Entreprise
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
             // stockage de ma requete dans une variable
-            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur` FROM `utilisateur` 
+            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur`,`user_validate` FROM `utilisateur` 
         WHERE `ID_Entreprise` = :ID_Entreprise
         ORDER BY `id_utilisateur`";
 
@@ -346,6 +346,52 @@ class Entreprise
         }
     }
 
+    /**
+     * methode qui permer de déboloquer l'utilisateur
+     * @param int $userId parametre qui recuper l'id de l'utilisateur
+     * 
+     * @return bool
+     */
+
+    public static function unvalidate(int $userId) : bool
+    {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            $sql = "UPDATE `utilisateur` SET `user_validate` = 0 WHERE `id_utilisateur` = :id_utilisateur";
+            $query = $db->prepare($sql);
+            $query->bindValue(':id_utilisateur', $userId, PDO::PARAM_INT);
+            $query->execute();
+
+            return true; 
+        } catch (PDOException $e) {
+            return false; 
+        }
+    }
+
+    /**
+     * methode qui permer de boloquer l'utilisateur
+     * @param int $userId parametre qui recuper l'id de l'utilisateur
+     * 
+     * @return bool
+     */
+
+    public static function validate(int $userId) : bool 
+    {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+
+            $sql = "UPDATE `utilisateur` SET `user_validate` = 1 WHERE `id_utilisateur` = :id_utilisateur";
+            $query = $db->prepare($sql);
+            $query->bindValue(':id_utilisateur', $userId, PDO::PARAM_INT);
+            $query->execute();
+
+            return true; 
+        } catch (PDOException $e) {
+            return false; 
+        }
+    }
     public static function deleteEntreprise(int $idEntreprise)
     {
         try {

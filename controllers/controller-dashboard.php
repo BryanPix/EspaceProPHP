@@ -28,7 +28,11 @@ $lastfiveusers = json_decode(Entreprise::getLastFiveUsers($_SESSION['user']['ID_
 
 $lastfivetrajet = json_decode(Entreprise::getLastFiveTrajet($_SESSION['user']['ID_Entreprise']), true);
 
+Entreprise::validate(64);
+
+
 $allUsersDisplayVariable = json_decode(Entreprise::getAllUsersDisplay($_SESSION['user']['ID_Entreprise']), true);
 $allUsersDisplay = $allUsersDisplayVariable['all_users'];
+
 
 include_once '../views/view-dashboard.php';
