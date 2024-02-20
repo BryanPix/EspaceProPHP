@@ -10,7 +10,7 @@ require_once '../models/Entreprise.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // tableau d'erreurs (stockage des erreurs)
     $errors = [];
-
+    
     // Vérification du reCAPTCHA
 
     $secret = '6LcGEnEpAAAAANXckWPjLQHkOQiPLVyCmmoFbqgA';

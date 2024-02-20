@@ -273,6 +273,29 @@ class Entreprise
             ]);
         }
     }
+
+    public static function getTransportStats(int $idEntreprise): string
+    {
+        try {
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+            
+            $sql = "SELECT Type_modedetransport, COUNT(*) as stats FROM `modedetransport` 
+                    NATURAL JOIN `utilisateur`
+                    NATURAL JOIN `entreprise`
+                    NATURAL JOIN `trajet`
+                    where ID_Entreprise = :ID_Entreprise
+                    GROUP BY Type_modedetransport;";
+            $query = $db->prepare($sql);
+            $query->bindValue(':ID_Entreprise', $idEntreprise, PDO::PARAM_INT);
+            $query->execute();
+            $result = $query->fetchAll(PDO::FETCH_ASSOC);
+            return json_encode($result);
+        } catch (PDOException $e) {
+            echo 'Erreur : ' . $e->getMessage();
+            die();
+        }
+    }
+
     public static function getAllUsersDisplay(int $idEntreprise): string
     {
         try {
@@ -280,7 +303,7 @@ class Entreprise
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
 
             // stockage de ma requete dans une variable
-            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur`,`user_validate` FROM `utilisateur` 
+            $sql = "SELECT `Image_utilisateur`, `nickname_utilisateur`,`user_validate`, `id_utilisateur` FROM `utilisateur` 
         WHERE `ID_Entreprise` = :ID_Entreprise
         ORDER BY `id_utilisateur`";
 

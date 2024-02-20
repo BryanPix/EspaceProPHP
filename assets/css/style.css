@@ -137,9 +137,11 @@ ul {
   display: visible;
   font-size: 1.5rem;
 }
+
 hr{
   color: #c4733d;
 }
+
 /* Petit ecran */
 @media (min-width: 640px) {
   .btn-redirect {

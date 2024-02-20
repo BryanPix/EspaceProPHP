@@ -15,6 +15,8 @@ require_once "../controllers/controller-dashboard.php"
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Dashboard</title>
 </head>
 
@@ -85,6 +87,12 @@ require_once "../controllers/controller-dashboard.php"
             </p>
 
         </div>
+        <div class="row">
+            <div class="col s4 ">
+                <canvas id="doughnutChart"  width="400" height="400"></canvas>
+            </div>
+        </div>
+    </div>
         <div class="rowDiv4">
             <p><b>liste tout les utilisateurs : </b></p>
             <?php
@@ -92,48 +100,43 @@ require_once "../controllers/controller-dashboard.php"
             $i = 1;
             foreach ($allUsersDisplay as $user) { ?>
                 <div class="switch">
-                <img src="http://formulairePHP.test/assets/img/<?= $user['Image_utilisateur'] ?>" class="profilePicture"
-                    alt="image profile" ;>
-                <br>
-                <b>Pseudo :</b>
-                <?= $user['nickname_utilisateur'];
-                ; ?>
-                </br>
-                <label>
-                    Off
-                    <input type="checkbox" <?= $user['user_validate'] == 1 ? "checked" : ""  ?>>
-                    <span class="lever"></span>
-                    On
-                </label>
-                <br><br>
-                <form action="">
-                <button>validate</button>
-                </form>
-                <br>
-                <form action="">
-                <button>unvalidate</button>
-                </form>
-                <?= $i++ != $total ? '<hr>' : '' ?>
+                    <br>
+                    <img src="http://formulairePHP.test/assets/img/<?= $user['Image_utilisateur'] ?>" class="profilePicture"
+                        alt="image profile" ;>
+                    <br>
+                    <b>Pseudo :</b>
+                    <?= $user['nickname_utilisateur'];
+                    ; ?>
+                    </br>
+                    <label>
+                        Off
+                        <input type="checkbox" data-user-id="<?= $user['id_utilisateur'] ?>" <?= $user['user_validate'] == 1 ? "checked" : "" ?>>
+                        <span class="lever"></span>
+                        On
+                    </label>
+                    <br><br>
+                        <input type="hidden" name="unvalidate_id" value="<?= $user['id_utilisateur'] ?>">
+                    <br>
+                    <?= $i++ != $total ? '<hr>' : '' ?>
                 </div>
             <?php } ?>
 
 
         </div>
+    <div class="bottomDiv">
+        <p><b>Liste des 5 derniers trajets d'enregistrés :</b></p>
+        <?php foreach ($lastfivetrajet['last_five_trajet'] as $user) { ?>
+            <ul>
+                <li>
+                    <?= $user['nickname_utilisateur'] . '</br>'; ?>
+                    <?= $user['date_trajet'] . '</br>'; ?>
+                    <?= $user['distance_trajet'] . ' kms </br>'; ?>
+                    <?= $user['Type_modedetransport']; ?>
+                </li>
+            </ul>
+        <?php } ?>
 
-        <div class="bottomDiv">
-            <p><b>Liste des 5 derniers trajets d'enregistrés :</b></p>
-            <?php foreach ($lastfivetrajet['last_five_trajet'] as $user) { ?>
-                <ul>
-                    <li>
-                        <?= $user['nickname_utilisateur'] . '</br>'; ?>
-                        <?= $user['date_trajet'] . '</br>'; ?>
-                        <?= $user['distance_trajet'] . ' kms </br>'; ?>
-                        <?= $user['Type_modedetransport']; ?>
-                    </li>
-                </ul>
-            <?php } ?>
-
-        </div>
+    </div>
 
     </div>
     <footer>
@@ -142,7 +145,86 @@ require_once "../controllers/controller-dashboard.php"
         ?>
     </footer>
     <script src="../assets/js/darkMode.js"></script>
+    <script>
+        document.addEventListener('click', e =>{
+            if(e.target.type == 'checkbox'){
+                if(e.target.checked == false){
+                    console.log('unvalidate');
+                    fetch(`controller-ajax.php?unvalidate=${e.target.dataset.userId}`)
+                }else{
+                    console.log('validate');
+                    fetch(`controller-ajax.php?validate=${e.target.dataset.userId}`)
 
+                }
+            }
+        })
+    </script>
+    <script>
+        // Récupérer les données PHP des stats transports dans une variable JavaScript
+        let statsTransports = <?php echo json_encode($statsTransports); ?>;
+
+        // Initialiser les tableaux pour les données et les couleurs
+        let data = [];
+        let labels = [];
+        let backgroundColors = [];
+        let borderColors = [];
+        // Générer des couleurs aléatoires
+        function generateRandomColor() {
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            return 'rgba(' + r + ',' + g + ',' + b + ')';
+        }
+        // Itérer à travers les données de transport
+        statsTransports.forEach(function (stat) {
+            labels.push(stat.Type_modedetransport); // Modification ici pour utiliser la bonne clé
+            data.push(stat.stats);
+            let randomColor = generateRandomColor();
+            backgroundColors.push(randomColor);
+            borderColors.push(randomColor.replace('0.2', '1'));
+        });
+
+        // Générer le graphique Doughnut
+        let ctx = document.getElementById('doughnutChart').getContext('2d');
+        let doughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Nombre de trajets',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            generateLabels: function (chart) {
+                                let data = chart.data;
+                                if (data.labels.length && data.datasets.length) {
+                                    return data.labels.map(function (label, i) {
+                                        let ds = data.datasets[0];
+                                        return {
+                                            text: label + ': ' + ds.data[i], // Ajouter le nom de transport et la valeur
+                                            fillStyle: ds.backgroundColor[i],
+                                            hidden: isNaN(ds.data[i]),
+                                            lineCap: 'round',
+                                            fontColor: '#080808'
+                                        };
+                                    });
+                                }
+                                return [];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>
