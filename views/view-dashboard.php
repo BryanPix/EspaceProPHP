@@ -28,7 +28,7 @@ require_once "../controllers/controller-dashboard.php"
     <aside class="asideDiv2">
         <p><b>Liste des 5 derniers utilisateurs :</b></p>
 
-        <?php
+        <?php 
         $total = count($lastfiveusers['last_five_users']);
         $i = 1;
         foreach ($lastfiveusers['last_five_users'] as $user) { ?>
@@ -36,10 +36,9 @@ require_once "../controllers/controller-dashboard.php"
                 alt="image profile" ;>
             <br>
             <b>Pseudo :</b>
-            <?= $user['nickname_utilisateur'];
-            ; ?>
+            <?= $user['nickname_utilisateur'];; ?>
             </br>
-            <?= $i++ != $total ? '<hr>' : '' ?>
+           <?= $i++ != $total ? '<hr>' : '' ?>
         <?php } ?>
 
     </aside>
@@ -48,10 +47,8 @@ require_once "../controllers/controller-dashboard.php"
         <p><b>Menu :</b></p>
 
         <b>Image :</b>
-        <img src="../assets/img/<?= $_SESSION['user']['Image_entreprise'] ?>" class="profilePicture" alt="image profile"
-            ;>
-        </br>
-        <hr>
+        <img src="../assets/img/<?= $_SESSION['user']['Image_entreprise'] ?>" class="profilePicture" alt="image profile" ;>
+        </br><hr>
         <b>Nom :</b>
         <?= $_SESSION['user']['name_entreprise'] . '</br> <hr>'; ?>
         <b>Email :</b>

@@ -11,9 +11,11 @@ function toggleDarkMode() {
   if (isDarkMode) {
     iconDark.style.display = "none";
     iconLight.style.display = "inline";
-  } else {
     iconDark.style.display = "inline";
     iconLight.style.display = "none";
+  } else {
+    iconDark.style.display = "none";
+    iconLight.style.display = "inline";
   }
 }
 
@@ -23,6 +25,12 @@ if (savedDarkMode === "true") {
   //conserver la visibilité des icones
   const iconDark = document.querySelector(".iconDark");
   const iconLight = document.querySelector(".iconLight");
+  iconDark.style.display = "inline";
+  iconLight.style.display = "none";
+} else{
+  const iconDark = document.querySelector(".iconDark");
+  const iconLight = document.querySelector(".iconLight");
   iconDark.style.display = "none";
   iconLight.style.display = "inline";
+  
 }

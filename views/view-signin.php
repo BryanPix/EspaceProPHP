@@ -10,8 +10,10 @@ include 'templates/header.php';
 
 <body>
     <button class="btn-darkMode" id="darkModeToggle" onclick="toggleDarkMode()">
-        <i class="fa-solid fa-sun iconDark"></i>
-        <i class="fa-solid fa-moon iconLight"></i>
+        <div class="iconContainer">
+            <i class="fa-solid fa-sun iconDark"></i>
+            <i class="fa-solid fa-moon iconLight"></i>
+        </div>
     </button>
     <h1>Connexion</h1>
     <div class="divFormulaire">
