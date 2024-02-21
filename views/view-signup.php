@@ -23,7 +23,7 @@ include 'templates/header.php';
                 <label class="labelSignup" for="nom">
                     <p>Nom de l'entreprise<sup class="redInput">* </sup>:</p>
 
-                    <input class="inputField" type="text" id="nom" name="nom" size="20" placeholder="Balenciaga" value="<?php if (!empty($name)) {
+                    <input class="inputField" type="text" id="nom" name="nom" size="20" placeholder="Ex: Balenciaga" value="<?php if (!empty($name)) {
                         echo $name;
                     } ?>" required>
                     <span class="redInput redText spanNom">
@@ -34,7 +34,7 @@ include 'templates/header.php';
                 <label class="labelSignup" for="mail">
                     <p>Adresse mail de l'entreprise<sup class="redInput">* </sup> :</p>
 
-                    <input class="inputField" type="text" id="mail" name="mail" size="25" placeholder="Balanciaga@gmail.com"
+                    <input class="inputField" type="text" id="mail" name="mail" size="25" placeholder="Ex: Balenciaga@gmail.com"
                         value="<?php if (!empty($mail)) {
                             echo $mail;
                         } ?>" required>
