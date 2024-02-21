@@ -28,6 +28,8 @@ $lastfivetrajet = json_decode(Entreprise::getLastFiveTrajet($_SESSION['user']['I
 
 $statsTransports = json_decode(Entreprise::getTransportStats($_SESSION['user']['ID_Entreprise']), true);
 
+$getOneUser = json_decode(Entreprise::getOneUser($_SESSION['user']['ID_Entreprise']), true);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if(isset($_POST['validate_id'])){
         Entreprise::validate($_POST['validate_id']);

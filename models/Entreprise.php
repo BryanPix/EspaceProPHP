@@ -273,12 +273,46 @@ class Entreprise
             ]);
         }
     }
+    public static function getOneUser(int $idUtilisateur): string
+    {
+        try {
+            // Création d'un objet $db selon la classe PDO
+            $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
+
+            // stockage de ma requete dans une variable
+            $sql = "SELECT * FROM `utilisateur`
+            WHERE `ID_Utilisateur` = :ID_Utilisateur";
+
+            // je prepare ma requête pour éviter les injections SQL
+            $query = $db->prepare($sql);
+
+            // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
+            $query->bindValue(':ID_Utilisateur', $idUtilisateur, PDO::PARAM_INT);
+
+            // on execute la requête
+            $query->execute();
+
+            // on récupère le résultat de la requête dans une variable
+            $result = $query->fetch(PDO::FETCH_ASSOC);
+
+            // on retourne le résultat
+            return json_encode([
+                'status' => 'success',
+                'one_user' => $result
+            ]);
+        } catch (PDOException $e) {
+            return json_encode([
+                'status' => 'error',
+                'message' => 'Erreur : ' . $e->getMessage()
+            ]);
+        }
+    }
 
     public static function getTransportStats(int $idEntreprise): string
     {
         try {
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
-            
+
             $sql = "SELECT Type_modedetransport, COUNT(*) as stats FROM `modedetransport` 
                     NATURAL JOIN `utilisateur`
                     NATURAL JOIN `entreprise`
@@ -376,7 +410,7 @@ class Entreprise
      * @return bool
      */
 
-    public static function unvalidate(int $userId) : bool
+    public static function unvalidate(int $userId): bool
     {
         try {
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
@@ -386,9 +420,9 @@ class Entreprise
             $query->bindValue(':id_utilisateur', $userId, PDO::PARAM_INT);
             $query->execute();
 
-            return true; 
+            return true;
         } catch (PDOException $e) {
-            return false; 
+            return false;
         }
     }
 
@@ -399,7 +433,7 @@ class Entreprise
      * @return bool
      */
 
-    public static function validate(int $userId) : bool 
+    public static function validate(int $userId): bool
     {
         try {
             $db = new PDO("mysql:host=localhost;dbname=" . DBNAME, DBUSER, DBPASSWORD);
@@ -410,9 +444,9 @@ class Entreprise
             $query->bindValue(':id_utilisateur', $userId, PDO::PARAM_INT);
             $query->execute();
 
-            return true; 
+            return true;
         } catch (PDOException $e) {
-            return false; 
+            return false;
         }
     }
     public static function deleteEntreprise(int $idEntreprise)
