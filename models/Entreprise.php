@@ -281,13 +281,13 @@ class Entreprise
 
             // stockage de ma requete dans une variable
             $sql = "SELECT * FROM `utilisateur`
-            WHERE `ID_Utilisateur` = :ID_Utilisateur";
+            WHERE `id_utilisateur` = :id_utilisateur";
 
             // je prepare ma requête pour éviter les injections SQL
             $query = $db->prepare($sql);
 
             // on relie les paramètres à nos marqueurs nominatifs à l'aide d'un bindValue
-            $query->bindValue(':ID_Utilisateur', $idUtilisateur, PDO::PARAM_INT);
+            $query->bindValue(':id_utilisateur', $idUtilisateur, PDO::PARAM_INT);
 
             // on execute la requête
             $query->execute();
